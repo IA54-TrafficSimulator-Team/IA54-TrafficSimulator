@@ -43,5 +43,10 @@
     		<artifactId>kernel</artifactId>
     		<version>1.0</version>
     	</dependency>
+    	<dependency>
+    	    <groupId>org.janus-project.extras.modules.jaak</groupId>
+    	    <artifactId>jaak</artifactId>
+    	    <version>1.0</version>
+    	</dependency>
     </dependencies>
 </project>
