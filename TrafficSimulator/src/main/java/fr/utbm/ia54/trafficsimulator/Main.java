@@ -1,7 +1,7 @@
 package fr.utbm.ia54.trafficsimulator;
 
 public class Main {
-
+    //Test comment
     public Main() {
         // TODO Auto-generated constructor stub
     }
