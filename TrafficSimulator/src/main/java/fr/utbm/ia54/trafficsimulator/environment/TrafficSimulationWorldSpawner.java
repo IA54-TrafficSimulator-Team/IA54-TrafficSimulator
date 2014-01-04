@@ -20,12 +20,10 @@ public class TrafficSimulationWorldSpawner extends JaakWorldSpawner {
         super(environment);
         this.environment = environment;
         this.random = new Random();
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     protected boolean isSpawnable(KernelTimeManager timeManager) {
-        // TODO Auto-generated method stub
         return this.environment.getTurtleCount() < this.VEHICLE_COUNT;
     }
 

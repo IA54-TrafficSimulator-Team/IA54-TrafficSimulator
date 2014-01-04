@@ -44,21 +44,10 @@ public class MainProgram {
     }
     
     private static JaakEnvironment createEnvironment() {
-        JaakEnvironment environment = new JaakEnvironment(50, 50);
+        JaakEnvironment environment = new JaakEnvironment(50,50);
         ActionApplier ap = environment.getActionApplier();
         
-        environment.setWrapped(true);
-        
-        /*for(int x=0;x<environment.getWidth();++x) {
-            ap.putObject(x, 0, new Obstacle());
-            ap.putObject(x, environment.getHeight()-1, new Obstacle());
-        }
-        
-        for(int y=1;y<environment.getHeight();++y) {
-            ap.putObject(0, y, new Obstacle());
-            ap.putObject(environment.getWidth()-1, y, new Obstacle());
-        }*/
-        
+        environment.setWrapped(true);        
         
         for(int x1=1;x1<environment.getWidth();x1+=8) {
             for(int y1=1;y1<environment.getHeight();y1+=8) {
@@ -66,14 +55,11 @@ public class MainProgram {
                     for(int y2=y1;y2<y1+6;++y2) {
                         ap.putObject(x2, y2, new Wall());
                     }
-                    //test
-                    ap.putObject(x1, y1, new TrafficLight());
                 }
             }
         }
         
-        /*for(int i=2;i<6;++i)
-            ap.putObject(i, i, new Obstacle());*/
+        ap.putObject(7, 8, new TrafficLight());
 
         return environment;
     }
