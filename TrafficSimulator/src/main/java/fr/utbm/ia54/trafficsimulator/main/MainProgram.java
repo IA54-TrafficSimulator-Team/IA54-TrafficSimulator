@@ -59,8 +59,8 @@ public class MainProgram {
         }*/
         
         
-        for(int x1=1;x1<environment.getWidth();x1+=7) {
-            for(int y1=1;y1<environment.getHeight();y1+=7) {
+        for(int x1=1;x1<environment.getWidth();x1+=8) {
+            for(int y1=1;y1<environment.getHeight();y1+=8) {
                 for(int x2=x1;x2<x1+6;++x2) {
                     for(int y2=y1;y2<y1+6;++y2) {
                         ap.putObject(x2, y2, new Obstacle());
