@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import javax.swing.JFrame;
 
 import org.janusproject.jaak.envinterface.channel.GridStateChannel;
-import org.janusproject.jaak.envinterface.perception.Obstacle;
 import org.janusproject.jaak.environment.model.JaakEnvironment;
 import org.janusproject.jaak.environment.solver.ActionApplier;
 import org.janusproject.jaak.kernel.JaakKernel;
@@ -14,7 +13,9 @@ import org.janusproject.jaak.spawner.JaakSpawner;
 import org.janusproject.kernel.agent.Kernels;
 import org.janusproject.kernel.logger.LoggerUtil;
 
+import fr.utbm.ia54.trafficsimulator.environment.TrafficLight;
 import fr.utbm.ia54.trafficsimulator.environment.TrafficSimulationWorldSpawner;
+import fr.utbm.ia54.trafficsimulator.environment.Wall;
 import fr.utbm.ia54.trafficsimulator.ui.TrafficSimulatorFrame;
 import fr.utbm.ia54.trafficsimulator.ui.TrafficSimulatorPanel;
 
@@ -63,8 +64,10 @@ public class MainProgram {
             for(int y1=1;y1<environment.getHeight();y1+=8) {
                 for(int x2=x1;x2<x1+6;++x2) {
                     for(int y2=y1;y2<y1+6;++y2) {
-                        ap.putObject(x2, y2, new Obstacle());
+                        ap.putObject(x2, y2, new Wall());
                     }
+                    //test
+                    ap.putObject(x1, y1, new TrafficLight());
                 }
             }
         }

@@ -15,6 +15,10 @@ public class TrafficLight extends Obstacle implements AutonomousEndogenousProces
 	public TrafficLight() {
 		
 	}
+	
+	public boolean getStopLight(){
+		return this.stopLight;
+	}
 
 	/** Invoked to run the dynamics of the traffic light.
 	  * @param currentTime is the current time in the simulation.
@@ -23,7 +27,7 @@ public class TrafficLight extends Obstacle implements AutonomousEndogenousProces
 	public Influence runAutonomousEndogenousProcess(float currentTime, float simulationStepDuration) {
 		
 		if(currentTime%5==0)
-			stopLight=!stopLight;
+			this.stopLight=!this.stopLight;
 		
 		// There is no desire of action for the traffic light.
 		return null;
