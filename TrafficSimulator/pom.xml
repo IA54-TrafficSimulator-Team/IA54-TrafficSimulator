@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>fr.utbm.ia54</groupId>
-  <artifactId>TrafficSimulator</artifactId>
+  <groupId>utbm.ia54.project</groupId>
+  <artifactId>TraficSimulator</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
+  <name>Trafic Simulator</name>
   <repositories>
         <repository>
             <id>org.janusproject-maven</id>
@@ -11,7 +11,6 @@
             <url>http://www.janus-project.org/maven</url>
         </repository>
     </repositories>
-    
     <pluginRepositories>
         <pluginRepository>
             <id>org.janusproject-maven</id>
@@ -36,17 +35,23 @@
             </plugin>
         </plugins>
     </build>
-  
     <dependencies>
-    	<dependency>
-    		<groupId>org.janus-project.kernel</groupId>
-    		<artifactId>kernel</artifactId>
-    		<version>1.0</version>
-    	</dependency>
-    	<dependency>
-    	    <groupId>org.janus-project.extras.modules.jaak</groupId>
-    	    <artifactId>jaak</artifactId>
-    	    <version>1.0</version>
-    	</dependency>
+        <dependency>
+            <groupId>org.janus-project.kernel</groupId>
+            <artifactId>kernel</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>
+                org.janus-project.extras.modules.scriptedagent
+            </groupId>
+            <artifactId>jythonengine</artifactId>
+            <version>1.0</version>
+        </dependency>
+           <dependency>
+            <groupId>org.janus-project.extras.modules.jaak</groupId>
+            <artifactId>jaak</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>
