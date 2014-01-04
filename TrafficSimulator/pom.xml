@@ -3,7 +3,7 @@
   <groupId>utbm.ia54.project</groupId>
   <artifactId>TraficSimulator</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Trafic Simulator</name>
+  <name>Traffic Simulator</name>
   <repositories>
         <repository>
             <id>org.janusproject-maven</id>
