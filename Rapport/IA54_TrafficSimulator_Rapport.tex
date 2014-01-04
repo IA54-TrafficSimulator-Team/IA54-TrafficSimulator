@@ -1,0 +1,87 @@
+\documentclass[a4paper,12pt]{report}
+
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,frenchb]{babel}
+\usepackage[top=4cm, bottom=2cm, left=3cm, right=3cm]{geometry}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+\usepackage{eurosym}
+\usepackage{gensymb}
+\usepackage{multicol}
+\usepackage{lscape}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{caption} % allow new line inside caption
+\usepackage{subcaption}
+\usepackage[toc,page]{appendix} 
+
+% Sam's template
+\usepackage{palatino}
+\usepackage{phdthesis}
+
+\hypersetup{
+  backref=true,    %permet d'ajouter des liens dans...
+  pagebackref=true,%...les bibliographies
+  hyperindex=true, %ajoute des liens dans les index.
+  colorlinks=true, %colorise les liens
+  breaklinks=true, %permet le retour à la ligne dans les liens trop longs
+  urlcolor= blue,  %couleur des hyperliens
+  linkcolor= black, %couleur des liens internes
+  bookmarks=true,  %créé des signets pour Acrobat
+  bookmarksopen=true,            %si les signets Acrobat sont créés,
+  %les afficher complètement.
+  pdftitle={Rapport de Projet IA54}, %informations apparaissant dans
+  pdfauthor={Lucie BOUTOU & Théophile Madet},     %dans les informations du document
+  pdfsubject={Simulateur de traffic}          %sous Acrobat.
+  }
+
+\title{Rapport de Projet IA54 \\ Simulateur de traffic}
+\author{Lucie BOUTOU \\ Théophile MADET}
+\date{\today}
+
+% un boite pour l ’auteur de la citation
+\newsavebox{\auteurcitation}
+\newsavebox{\boitecitation}
+\newenvironment{unecitation}[1]{% clause begin
+  % on sauve l ’argument 1 pour l ’auteur
+  \savebox{\auteurcitation}{#1}%
+\begin{lrbox}{\boitecitation}
+\begin{minipage}{0.8\linewidth}%
+\setlength{\parindent}{10pt}%
+\large\slshape`` \ignorespaces}% on passe en petit et penché
+{ ''
+  \par\mbox{}\hfill\usebox{\auteurcitation}
+\end{minipage}
+\end{lrbox}
+\begin{center}
+\usebox{\boitecitation}
+\end{center}}
+
+
+
+\begin{document}
+\setcounter{page}{2}
+\tableofcontents
+
+\newpage
+
+\chapter{Introduction}
+
+\chapter{Outils utilisés}
+
+\chapter{Simulateur de traffic}
+
+\section{Architeture générale}
+
+\chapter{Extension de Jaak aux langages de scripts}
+
+\chapter{Agent Python avec Jaak}
+
+\chapter{Conclusion}
+
+
+\end{document}
