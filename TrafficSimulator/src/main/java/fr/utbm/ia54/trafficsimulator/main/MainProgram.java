@@ -1,5 +1,6 @@
 package fr.utbm.ia54.trafficsimulator.main;
  
+import java.util.Random;
 import java.util.logging.Level;
 
 import javax.swing.JFrame;
@@ -48,7 +49,7 @@ public class MainProgram {
         ActionApplier ap = environment.getActionApplier();
         
         environment.setWrapped(true);        
-        
+        Random random = new Random();
         for(int x1=1;x1<environment.getWidth();x1+=8) {
             for(int y1=1;y1<environment.getHeight();y1+=8) {
                 for(int x2=x1;x2<x1+6;++x2) {
@@ -56,10 +57,10 @@ public class MainProgram {
                         ap.putObject(x2, y2, new Wall());
                     }
                 }
-                ap.putObject(x1+6, y1+5, new TrafficLight());
-                ap.putObject(x1+5, y1+7, new TrafficLight());
-                ap.putObject(x1+8, y1+6, new TrafficLight());
-                ap.putObject(x1+7, y1+8, new TrafficLight());
+                ap.putObject(x1+6, y1+5, new TrafficLight(random.nextInt(5)));
+                ap.putObject(x1+5, y1+7, new TrafficLight(random.nextInt(5)));
+                ap.putObject(x1+8, y1+6, new TrafficLight(random.nextInt(5)));
+                ap.putObject(x1+7, y1+8, new TrafficLight(random.nextInt(5)));
             }
         }
         
