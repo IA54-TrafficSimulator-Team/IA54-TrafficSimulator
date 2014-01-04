@@ -15,11 +15,11 @@ import fr.utbm.ia54.trafficsimulator.agents.Car;
 public class TrafficSimulationWorldSpawner extends JaakWorldSpawner {
     private int budget;
     private Random random;
-    private EnvironmentArea environmentArea;
+    private EnvironmentArea environment;
     
     public TrafficSimulationWorldSpawner(EnvironmentArea environment) {
         super(environment);
-        this.environmentArea = environment;
+        this.environment = environment;
         this.budget = 1;
         this.random = new Random();
         // TODO Auto-generated constructor stub
@@ -33,7 +33,14 @@ public class TrafficSimulationWorldSpawner extends JaakWorldSpawner {
 
     @Override
     protected Turtle createTurtle(KernelTimeManager arg0) {
-        return new Car(new Point2i(this.random.nextInt(this.environmentArea.getWidth()),this.random.nextInt(this.environmentArea.getHeight())));
+        Point2i destination;
+        
+        do{
+            destination = new Point2i(this.random.nextInt(this.environment.getWidth()),this.random.nextInt(this.environment.getWidth()));
+        }
+        while(this.environment.hasObstacle(destination));
+        
+        return new Car(destination);
     }
 
     @Override
