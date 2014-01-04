@@ -11,9 +11,10 @@ public class TrafficLight extends EnvironmentalObject implements AutonomousEndog
 	public static final Object TRAFFICLIGHT_SEMANTIC = new Object();
 
 	private boolean stopLight = true;
-
+	private int counter;
 	public TrafficLight(Object semantic) {
 		super(semantic);
+		this.counter = 0;
 	}
 	
 	public TrafficLight() {
@@ -29,8 +30,8 @@ public class TrafficLight extends EnvironmentalObject implements AutonomousEndog
 	  * @param simulationStepDuration is the duration of one simulation step.
 	 */
 	public Influence runAutonomousEndogenousProcess(float currentTime, float simulationStepDuration) {
-		
-		if(currentTime%5.0f==0.0f)
+		this.counter++;
+		if(this.counter%5==0)
 			this.stopLight=!this.stopLight;
 		
 		// There is no desire of action for the traffic light.
