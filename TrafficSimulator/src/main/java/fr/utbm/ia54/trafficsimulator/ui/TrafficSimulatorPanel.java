@@ -83,21 +83,25 @@ GridStateChannelListener, MouseListener {
 					g.setColor(Color.BLUE);
 					g.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE, CELL_SIZE);
 				}
-				else {
-					for(EnvironmentalObject eo : this.channel.getEnvironmentalObjects(x, y)) {
-						if(eo instanceof Wall) {
-							g.setColor(Color.BLACK);
-							g.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE, CELL_SIZE);
-						}
-						if(eo instanceof TrafficLight) {
-							if(((TrafficLight)eo).getStopLight())
-								g.setColor(Color.RED);
-							else    
-								g.setColor(Color.GREEN);
-							g.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE, CELL_SIZE);
-						}
+
+				for(EnvironmentalObject eo : this.channel.getEnvironmentalObjects(x, y)) {
+					if(eo instanceof Wall) {
+						g.setColor(Color.BLACK);
+						g.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE, CELL_SIZE);
+					}
+					if(eo instanceof TrafficLight) {
+					    if(!this.channel.containsTurtle(x, y)) {
+    					    g.setColor(Color.GRAY);
+    	                    g.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE, CELL_SIZE);
+					    }
+						if(((TrafficLight)eo).getStopLight())
+							g.setColor(Color.RED);
+						else    
+							g.setColor(Color.GREEN);
+						g.fillRect(x*CELL_SIZE, y*CELL_SIZE, CELL_SIZE/4, CELL_SIZE/4);
 					}
 				}
+
 				if(this.channel.getAllObjects(x, y).isEmpty())
 				{
 					g.setColor(Color.GRAY);
