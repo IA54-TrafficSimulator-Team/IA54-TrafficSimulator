@@ -14,7 +14,7 @@ public class TrafficSimulationWorldSpawner extends JaakWorldSpawner {
     private Random random;
     private JaakEnvironment environment;
     
-    private final int VEHICLE_COUNT = 10;
+    private final int VEHICLE_COUNT = 2;
     
     public TrafficSimulationWorldSpawner(JaakEnvironment environment) {
         super(environment);
