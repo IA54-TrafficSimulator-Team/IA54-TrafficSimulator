@@ -9,6 +9,8 @@ import org.janusproject.jaak.envinterface.frustum.SquareTurtleFrustum;
 import org.janusproject.jaak.envinterface.perception.Obstacle;
 import org.janusproject.jaak.turtle.Turtle;
 
+import fr.utbm.ia54.trafficsimulator.environment.TrafficLight;
+
 public class Car extends Turtle {
 
     /**
@@ -19,6 +21,7 @@ public class Car extends Turtle {
     private Point2i destination;
     private static Random random;
     
+    @SuppressWarnings("boxing")
     public Car(Point2i destination) {
         super(true);
         this.destination = destination;
@@ -34,12 +37,15 @@ public class Car extends Turtle {
 
     @Override
     protected void turtleBehavior() {
-        System.out.println(this.getPosition());
         if(this.getPosition().equals(this.destination)) {
             System.out.println("Car arrived at destination : " + this.destination); //$NON-NLS-1$
             return;
         }
-        
+        for(TrafficLight tl : this.getPerceivedObjects(TrafficLight.class)) {
+            if(tl.getPosition().equals(this.getPosition()) && tl.getStopLight()) {
+                return;
+            }
+        }
         //If we have a wall on an adjacent square, we are on a street : no choice but to go forward
         for(Obstacle o : this.getPerceivedObjects(Obstacle.class)) {
             Point2i p = o.getPosition();
@@ -89,7 +95,6 @@ public class Car extends Turtle {
             else
                 corner = "???"; //$NON-NLS-1$
         }
-        System.out.println(corner);
         if(corner == "BOTTOMRIGHT") { //$NON-NLS-1$
             if(this.destination.y() < this.getY()) {
                 move(0,-1,true);

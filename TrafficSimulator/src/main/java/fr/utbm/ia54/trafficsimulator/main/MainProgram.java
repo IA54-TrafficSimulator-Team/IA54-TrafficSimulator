@@ -56,10 +56,14 @@ public class MainProgram {
                         ap.putObject(x2, y2, new Wall());
                     }
                 }
+                ap.putObject(x1+6, y1+5, new TrafficLight());
+                ap.putObject(x1+5, y1+7, new TrafficLight());
+                ap.putObject(x1+8, y1+6, new TrafficLight());
+                ap.putObject(x1+7, y1+8, new TrafficLight());
             }
         }
         
-        ap.putObject(7, 8, new TrafficLight());
+        
 
         return environment;
     }
