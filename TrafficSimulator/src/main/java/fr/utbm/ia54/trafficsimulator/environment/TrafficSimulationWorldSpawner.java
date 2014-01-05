@@ -8,13 +8,13 @@ import org.janusproject.jaak.spawner.JaakWorldSpawner;
 import org.janusproject.jaak.turtle.Turtle;
 import org.janusproject.kernel.time.KernelTimeManager;
 
-import fr.utbm.ia54.trafficsimulator.agents.JythonCar2;
+import fr.utbm.ia54.trafficsimulator.agents.JythonCar;
 
 public class TrafficSimulationWorldSpawner extends JaakWorldSpawner {
     private Random random;
     private JaakEnvironment environment;
-    
-    private final int VEHICLE_COUNT = 30;
+
+    private final int VEHICLE_COUNT = 10;
     
     public TrafficSimulationWorldSpawner(JaakEnvironment environment) {
         super(environment);
@@ -36,7 +36,7 @@ public class TrafficSimulationWorldSpawner extends JaakWorldSpawner {
         }
         while(this.environment.hasObstacle(destination));
         
-        return new JythonCar2(destination);
+        return new JythonCar(destination);
     } 
 
 }

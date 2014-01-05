@@ -11,6 +11,7 @@ import org.janusproject.jaak.envinterface.perception.Obstacle;
 import org.janusproject.jaak.turtle.Turtle;
 
 import fr.utbm.ia54.trafficsimulator.environment.TrafficLight;
+import fr.utbm.ia54.trafficsimulator.environment.Wall;
 
 public class Car extends Turtle {
 
@@ -40,14 +41,14 @@ public class Car extends Turtle {
 	@Override
 	protected void turtleBehavior() {
 	    //System.out.println("Destination : " + destination + " Position : " + getPosition());
-	    boolean destinationInObstacle = false;
+	    boolean destinationInWall = false;
 	    
 	    for(Obstacle o : this.getPerceivedObjects(Obstacle.class)) {
 	        if (o.getPosition().equals(this.destination))
-	            destinationInObstacle = true;
+	            destinationInWall = true;
 	    }
-		//If the car is arrived at its destination : don't move
-		if(this.getPosition().equals(this.destination) || destinationInObstacle) {
+		//If the car is arrived at its destination : don't move and create new destination
+		if(this.getPosition().equals(this.destination) || destinationInWall) {
 			System.out.println("Car arrived at destination : " + this.destination); //$NON-NLS-1$
 			this.destination = new Point2i(random.nextInt(50),random.nextInt(50));
 			System.out.println("New destination : " + this.destination); //$NON-NLS-1$
@@ -62,7 +63,7 @@ public class Car extends Turtle {
 		}
 
 		//If we have a wall on an adjacent square, we are on a street : no choice but to go forward
-		for(Obstacle o : this.getPerceivedObjects(Obstacle.class)) {
+		for(Wall o : this.getPerceivedObjects(Wall.class)) {
 			Point2i p = o.getPosition();
 
 			//If wall on left : go down
@@ -119,7 +120,7 @@ public class Car extends Turtle {
 		
 		//Determine on which corner of the crossing the car is
 		String corner = null;
-		for(Obstacle o : this.getPerceivedObjects(Obstacle.class)) {
+		for(Wall o : this.getPerceivedObjects(Wall.class)) {
 			Point2i p = o.getPosition();
 			if(p.x() == this.getX()+1 && p.y() == this.getY()+1) {
 				corner = "BOTTOMRIGHT"; //$NON-NLS-1$
