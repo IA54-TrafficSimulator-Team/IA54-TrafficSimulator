@@ -41,7 +41,7 @@ public class Car extends Turtle {
 
 	@Override
 	protected void turtleBehavior() {
-	    System.out.println("Destination : " + destination + " Position : " + getPosition());
+	    //System.out.println("Destination : " + destination + " Position : " + getPosition());
 	    boolean destinationInObstacle = false;
 	    
 	    for(Obstacle o : this.getPerceivedObjects(Obstacle.class)) {
