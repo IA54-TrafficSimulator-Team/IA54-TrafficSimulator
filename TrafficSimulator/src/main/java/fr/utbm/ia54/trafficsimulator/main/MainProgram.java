@@ -45,13 +45,20 @@ public class MainProgram {
     }
     
     private static JaakEnvironment createEnvironment() {
-        JaakEnvironment environment = new JaakEnvironment(50,50);
+        JaakEnvironment environment = new JaakEnvironment(46,46);
         ActionApplier ap = environment.getActionApplier();
+        
+        /*for(int x=0;x<environment.getWidth();++x) {
+            for(int y=0;y<environment.getHeight();++y) {
+                if(x==0 || y==0 || x==51 || y==51)
+                    ap.putObject(x, y, new Wall());
+            }
+        }*/
         
         environment.setWrapped(true);        
         Random random = new Random();
-        for(int x1=2;x1<environment.getWidth();x1+=8) {
-            for(int y1=2;y1<environment.getHeight();y1+=8) {
+        for(int x1=0;x1<environment.getWidth();x1+=8) {
+            for(int y1=0;y1<environment.getHeight();y1+=8) {
                 for(int x2=x1;x2<x1+6;++x2) {
                     for(int y2=y1;y2<y1+6;++y2) {
                         ap.putObject(x2, y2, new Wall());
