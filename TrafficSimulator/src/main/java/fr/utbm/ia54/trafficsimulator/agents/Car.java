@@ -22,8 +22,6 @@ public class Car extends Turtle {
 	private Point2i destination;
 	private static Random random;
 	private boolean wasOnCrossingBefore;
-	private boolean first = true;
-	
 	@SuppressWarnings("boxing")
 	public Car(Point2i destination) {
 		super(true);
