@@ -91,7 +91,7 @@ Notre simulateur de traffic doit être implémenté à l'aide de deux bibliothè
 
 Janus est une plateforme multi-agent open source implémentée en langage Java (version 1.6). Elle fournie des fonctionnalités permettant de développer, lancer, afficher et suivre des applications basées multi-agent. Janus peut être utilisée comme plateforme agent-orientée, plateforme organisationnelle, ou plateforme holonique. Elle est construite selon les normes du modèle organisationnel CRIO. Enfin Janus est libre pour une utilisation non commerciale et distribuée sous les termes de la licence GPLv3.\\
 
-Jaak est un outil qui complète la bibliothèque Janus. Il fournit un environnement 2D discret ainsi que des interactions simplifiées basées sur les primitives du langages Logo. Cet outil est particulièrement adapté à la modélisation de systèmes complexes se développant au cours du temps. \\
+Jaak est un outil qui complète la bibliothèque Janus. Il fournit un environnement 2D discret ainsi que des interactions simplifiées basées sur les primitives du langages Logo. Dans Jaak, un agent est appelé tortue, comme référence à la tortue du langage Logo. Cet outil est particulièrement adapté à la modélisation de systèmes complexes se développant au cours du temps. \\
 
 \chapter{Simulateur de traffic}
 
@@ -156,9 +156,9 @@ L'architecture de notre application de simulation de traffic est divisée en 5 p
 
 Le lanceur \emph{MainProgram.java} est à l'origine de la création de l'interface ainsi que de l'environnement. \\
 
-L'environnement est composé de différents objets tels que les murs et les feux tricolores. Il contient aussi le spawner qui sera responsable de la création des agents dans l'application.\\
+L'environnement est composé de différents objets tels que les murs et les feux tricolores. Il contient aussi le spawner qui sera responsable de la création des tortues dans l'application.\\
 
-Dans notre application, les agents sont des voitures. Il existe une version de l'agent écrite en Java (à des fins de test de l'application), ainsi qu'une version écrite dans le langage de script de notre choix sur laquelle nous reviendrons dans la suite de ce rapport. \\
+Dans notre application, les tortues sont des voitures. Il existe une version de la voiture écrite en Java (à des fins de test de l'application), ainsi qu'une version écrite dans le langage de script de notre choix sur laquelle nous reviendrons dans la suite de ce rapport. \\
 
 L'interface est uniquement composée d'une fenêtre ainsi que d'un panel, basés sur la bibliothèque Swing. \\
 
@@ -168,7 +168,7 @@ Enfin les scripts sont stockés dans un dossier de ressources.
 
 \section{Environnement}
 
-Notre environnement est un espace discret 2D représenté par une grille qui dans chaque casela composant, peut contenir différents objets et/ou agents. \\
+Notre environnement est un espace discret 2D représenté par une grille qui dans chaque casela composant, peut contenir différentes objets et/ou tortues. \\
 
 \begin{figure}[H]
    \centering
@@ -177,29 +177,65 @@ Notre environnement est un espace discret 2D représenté par une grille qui dan
 
 Parmi ces objets, notre environnement possède des murs, qui sont des obstacles : cela signifie qu'aucun autre élément ne peut se trouver dans une case où se trouve déjà un mur. Les routes apparaissent donc aux endroits où il n'y a pas de murs de placés. \\
 
-Un second objet compose notre environnement : il s'agit des feux de circulation. Cette catégorie d'objet ne correspond pas un obstacle. Il permet donc aux agents de se déplacer sur une case comportant un feu de circulation. Néanmoins ces feux agissent sur le dépacement des agents : lorsque le feu est rouge, les agents ne peuvent pas progresser au delà de celui-ci. Lorsque le feu est vert, ils le peuvent. \\
+Un second objet compose notre environnement : il s'agit des feux de circulation. Cette catégorie d'objet ne correspond pas un obstacle. Il permet donc aux voitures de se déplacer sur une case comportant un feu de circulation. Néanmoins ces feux agissent sur le dépacement des voitures : lorsque le feu est rouge, les voitures ne peuvent pas progresser au delà de celui-ci. Lorsque le feu est vert, ils le peuvent. \\
 
 La création de l'environnement se déroule dans la fonction \emph{createEnvironment} de la classe \emph{MainProgram}. Pour chaque case de la grille on lui applique le ou les objets que l'on souhaite aux coordonnées correspondantes. \\
 
-La création des agents est géré au sein de la classe \emph{TrafficSimulatorWorldSpawner}. Cette classe possède deux arguments importants : 
+La création des voitures est géré au sein de la classe \emph{TrafficSimulatorWorldSpawner}. Cette classe possède deux arguments importants : 
 \begin{itemize}
-\item[-] le nombre d'agents dont la simulation disposera,
+\item[-] le nombre de voitures dont la simulation disposera,
 \item[-] l'environnement créé précedemment.
 \end{itemize}
 
-Ainsi tant que le nombre d'agent dans la simulation n'est pas atteint, le spawner créé un nouvel agent qu'il positionne sur une case de la grille ne contenant pas de murs.
+Ainsi tant que le nombre de voitures dans la simulation n'est pas atteint, le spawner créé une nouvelle voiture qu'il positionne sur une case de la grille ne contenant pas de murs.
 
-\section{Agent}
+\section{Tortue}
 
+Comme dit dans la section précédente, dans notre simulateur de traffic, les tortues proposées dans la bibliothèques Jaak sont des voitures. \\
 
+Ces voitures peuvent se déplacer sur les routes. Pour chaque route deux voies sont disponibles pour chaque sens de circulation. Les voitures doivent se déplacer sur la voie de droite. Elles doivent également respecter les feux de circulation situés au niveau des croisements. \\
+
+A leur création, les voitures se voient attribuer une destination aléatoirement. Leur objectif est d'atteindre cette destination, pour ensuite s'en voir attribuer une nouvelle. \\
+
+Le déplacement des voitures est géré au sein de la fonction \emph{turtleBehaviour} qui est appelé à chaque pas de simulation. La voiture ne peut effectuer qu'un unique déplacement par pas de simulation : dès qu'un appel à la fonction \emph{move(x,y)} est réalisé au sein de la fonction \emph{turtleBehaviour}, on ne poursuit pas le déroulement de la fonction. \\
+
+Deux cas sont considérés lors du déplacement de la voiture :
+\begin{itemize}
+\item[-] le parcours d'une route,
+\item[-] l'intersection. \\
+\end{itemize}
+
+La voiture détecte qu'elle se trouve le long d'une route si celle ci trouve dans une de ses cases adjacentes un mur. Dans ce cas elle cherche dans quelle case se trouve le mur afin de déterminer dans quelle direction elle doit avancer. Tant que la voiture ne se trouve pas sur une intersection celle ci continue d'avancer dans la direction définie. \\
+
+C'est uniquement lorsque la voiture se trouve sur une intersection que celle-ci va prendre une décision sur la direction qui lui parait la meilleure pour atteindre sa destination. Elle peut :
+\begin{itemize}
+\item[-] traverser l'intersection sans changer de direction,
+\item[-] tourner sur sa droite,
+\item[-] faire un demi-tour (pas en diagonale) afin de faire face à cette intersection dans le sens inverse.\\
+\end{itemize}
+
+Afin de prendre sa décision, la voiture a accès à sa position (coordonnées x et y) ainsi que la position de sa destination (coordonnées x et y). 
 
 \section{Interface}
+
+L'interface proposée pour visualiser la simulation est bassée sur les classes \emph{JFrame} et \emph{JPanel} de la bibliothèqe Swing. \\
+
+La fenêtre est basique, elle possède un listener pour réagir à la fermeture de celle-ci et ainsi tuer les kernels au moment de la fermeture.\\
+
+Un panel compose cette fenêtre, c'est sur celui ci que ce sera dessiner la simulation. A chaque appel à la fonction de dessin du panel, un parcours de la grille de l'environnement est effectué, et selon l'objet ou la tortue trouvée on dessine un symbole correspondant à la bonne position :
+\begin{itemize}
+\item[-]un carré noir représente un mur,
+\item[-]un carré rouge ou vert représente un feu de circulation,
+\item[-]un carré bleu représente une voiture,
+\item[-]un carré gris représente une case vide (dessiné en gris afin de le différencier de la couleur de fond du panel).
+\end{itemize}
+
 
 \chapter{Extension aux langages de scripts}
 
 \section{Extension de Jaak}
 
-\section{Agent Python}
+\section{Tortue Python}
 
 \chapter{Conclusion}
 

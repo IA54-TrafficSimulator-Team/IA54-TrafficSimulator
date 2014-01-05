@@ -16,7 +16,8 @@ public class JythonCar extends JythonTurtle {
     private static final long serialVersionUID = -530889618501640929L;
     
     private Point2i destination;
-    private boolean wasOnCrossingBefore;
+    @SuppressWarnings("unused")
+	private boolean wasOnCrossingBefore;
     
     public JythonCar(Point2i destination) {
     	
