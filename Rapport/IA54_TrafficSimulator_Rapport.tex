@@ -235,9 +235,46 @@ Un panel compose cette fenêtre, c'est sur celui ci que ce sera dessiner la simu
 
 \section{Extension de Jaak}
 
-\section{Tortue Python}
+Le second objectif du projet, après avoir développer le simulateur de traffic sous Java, a été d'étendre la bibliothèque Jaak afin de permettre de développer des tortues dans un certain langage de script qui pourraient ensuite être implanter dans le simulateur développé en Java. \\
+
+Pour cela nous avons pu nous inspiré de la classe \emph{ScriptedAgent} disponible dans la bibliothèque Janus qui réalise déjà cette tâche pour implanter des agents écrits dans un certain lanage de script. \\
+
+Sur cet exemple nous avons écrit la classe \emph{ScriptedTurtle}. Cette classe définit les noms de fonctions qui pourront être définies au sein du script correspondant à une tortue :
+\begin{itemize}
+ \item[-]activateTurtle,
+ \item[-]behaviourTurtle,
+ \item[-]endTurtle.\\
+\end{itemize}
+
+Afin de coder une tortue en lanage de script, un script devra contenir au minimum la définition de la fonction behaviourTurtle.
+
+Cette classe est la classe mère qui permet d'écrire des tortues dans un langage de script. Un template est utilisé pour définir l'interpréteur et le loader de script. \\
+
+Il faut ensuite créé une classe personnalisée selon le langage de script choisi. Dans notre cas nous avons choisi le langage de script Python. Nous avons donc créé une classe \emph{JythonTurtle}. C'est dans celle-ci que sera spécifiée l'interpréteur et le script loader à utiliser.
+
+\section{Voiture Python}
+
+Après avoir obtenu la possibbilité de créer des tortues à partir du langage de script Python, il était nécessaire de créer une classe s'adaptant à notre voiture : la classe \emph{JythonCar}.\\
+
+Cette classe ajoute à la classe \emph{JythonTurtle} des attributs et fonctions spécifiques à notre voiture, qui seront ainsi accessible au sein du script \emph{PythonCar}. C'est au sein du constructeur de la classe \emph{JythonCar} que le script est atttribué à la tortue.
+
+Le script Python constitue principalement une traduction de la fonction turtleBehaviour que l'on trouve dans la classe \emph{Car} de la version Java de notre voiture. \\
+
+Deux fonctions ont été ajoutées à la classe \emph{JythonCar} afin de rendre leur appel accesible au sein du script. Ces fonctions permettent de faire une traduction entre certains objets de types primitifs (int, float) compatibles entre Python et Java, vers des types complexes (Vector2f(x,y),Point2i) qui ne peuvent être créé simplement au sein d'un script Python :
+
+\begin{verbatim}
+public void setDestination(int x, int y) {
+    this.destination.setX(x);
+    this.destination.setY(y);
+}
+\end{verbatim}
 
 \chapter{Conclusion}
 
+Nous avons réalisé au sein de ce projet un simulateur de traffic basique, auquel pourrait être ajouté de nombreuses et variées options afin de rendre celui ci le plus réaliste possible. \\
+
+Nous ne nous sommes pas attardés sur ce côté du projet car nous voulions nous assurer de faire fonctionner l'implantation de tortues écrites dans un langage de programmation au sein de notre simulateur. \\
+
+Nous avons mis en place l'implantation de tortues écrites dans le langage de script Python. Il serait maintenant rapide de mettre en place la gestion d'autres langages de scripts.\\
 
 \end{document}
