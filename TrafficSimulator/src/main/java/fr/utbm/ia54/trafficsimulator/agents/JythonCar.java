@@ -20,7 +20,7 @@ public class JythonCar extends JythonTurtle {
     
     public JythonCar(Point2i destination) {
     	
-    	super("git/IA54-TrafficSimulator/TrafficSimulator/res/scripts-python/testturtle.py"); //$NON-NLS-1$
+    	super("git/IA54-TrafficSimulator/TrafficSimulator/res/scripts-python/PythonCar.py"); //$NON-NLS-1$
         //super("Documents\\GitHub\\IA54-TrafficSimulator\\TrafficSimulator\\PythonTurtles\\testturtle.py"); //$NON-NLS-1$
         this.destination = destination;
     }

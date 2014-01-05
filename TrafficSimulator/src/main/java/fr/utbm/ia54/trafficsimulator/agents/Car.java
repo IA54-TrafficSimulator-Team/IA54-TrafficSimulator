@@ -50,7 +50,7 @@ public class Car extends Turtle {
 		//If the car is arrived at its destination : don't move and create new destination
 		if(this.getPosition().equals(this.destination) || destinationInWall) {
 			System.out.println("Car arrived at destination : " + this.destination); //$NON-NLS-1$
-			this.destination = new Point2i(random.nextInt(50),random.nextInt(50));
+			this.destination = new Point2i(random.nextInt(47),random.nextInt(47));
 			System.out.println("New destination : " + this.destination); //$NON-NLS-1$
 			return;
 		}

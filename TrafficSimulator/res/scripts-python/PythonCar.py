@@ -15,7 +15,7 @@ def behaviourTurtle(turtle) :
 
     if (turtle.getPosition() == turtle.destination or destinationInWall == True) :
         print "car arrived"
-        turtle.setDestination(randrange(50),randrange(50))
+        turtle.setDestination(randrange(47),randrange(47))
         print "new destination"
 
     for tl in turtle.getPerceivedObjects(TrafficLight) :
