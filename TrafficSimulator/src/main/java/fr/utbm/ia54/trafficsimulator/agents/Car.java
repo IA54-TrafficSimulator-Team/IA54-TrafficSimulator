@@ -37,10 +37,18 @@ public class Car extends Turtle {
 
 	@Override
 	protected void turtleBehavior() {
+	    
+	    boolean destinationInObstacle = false;
+	    
+	    for(Obstacle o : this.getPerceivedObjects(Obstacle.class)) {
+	        if (o.getPosition().equals(this.destination))
+	            destinationInObstacle = true;
+	    }
 		//If the car is arrived at its destination : don't move
-		if(this.getPosition().equals(this.destination)) {
+		if(this.getPosition().equals(this.destination) || destinationInObstacle) {
 			System.out.println("Car arrived at destination : " + this.destination); //$NON-NLS-1$
-			killMe();
+			this.destination = new Point2i(random.nextInt(50),random.nextInt(50));
+			System.out.println("New destination : " + this.destination); //$NON-NLS-1$
 			return;
 		}
 
