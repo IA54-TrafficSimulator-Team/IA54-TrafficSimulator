@@ -2,6 +2,7 @@ package fr.utbm.ia54.trafficsimulator.agents;
 
 import java.util.Random;
 
+import org.arakhne.afc.math.continous.object2d.Vector2f;
 import org.arakhne.afc.math.discrete.object2d.Point2i;
 import org.janusproject.jaak.envinterface.body.TurtleBody;
 import org.janusproject.jaak.envinterface.body.TurtleBodyFactory;
@@ -20,11 +21,14 @@ public class Car extends Turtle {
 
 	private Point2i destination;
 	private static Random random;
-
+	private boolean wasOnCrossingBefore;
+	private boolean first = true;
+	
 	@SuppressWarnings("boxing")
 	public Car(Point2i destination) {
 		super(true);
 		this.destination = destination;
+		this.wasOnCrossingBefore = false;
 		System.out.println("New turtle, destination : "+destination); //$NON-NLS-1$
 		if(Car.random == null)
 			Car.random = new Random();
@@ -37,7 +41,7 @@ public class Car extends Turtle {
 
 	@Override
 	protected void turtleBehavior() {
-	    
+	    System.out.println("Destination : " + destination + " Position : " + getPosition());
 	    boolean destinationInObstacle = false;
 	    
 	    for(Obstacle o : this.getPerceivedObjects(Obstacle.class)) {
@@ -51,7 +55,7 @@ public class Car extends Turtle {
 			System.out.println("New destination : " + this.destination); //$NON-NLS-1$
 			return;
 		}
-
+		
 		//If the car is in front of a traffic light which is red
 		for(TrafficLight tl : this.getPerceivedObjects(TrafficLight.class)) {
 			if(tl.getPosition().equals(this.getPosition()) && tl.getStopLight()) {
@@ -66,28 +70,55 @@ public class Car extends Turtle {
 			//If wall on left : go down
 			if(p.y() == this.getY() && p.x() == this.getX()-1) {
 				move(0,1,true);
+				this.wasOnCrossingBefore = false;
 				return;
 			}
 
 			//If wall on right : go up
 			if(p.y() == this.getY() && p.x() == this.getX()+1) {
 				move(0,-1,true);
+				this.wasOnCrossingBefore = false;
 				return;
 			}
 
 			//If wall on top : go left
 			if(p.x() == this.getX() && p.y() == this.getY()-1) {
 				move(-1,0,true);
+				this.wasOnCrossingBefore = false;
 				return;
 			}
 
 			//If wall on bottom : go right
 			if(p.x() == this.getX() && p.y() == this.getY()+1) {
 				move(1,0,true);
+				this.wasOnCrossingBefore = false;
 				return;
 			}
 		}
-
+		
+		if(this.wasOnCrossingBefore) {
+		    if(this.destination.x() == this.getX()) {
+		        if(this.destination.y() > this.getY()) {
+		            move(0,1,true);
+		            return;
+		        }
+		        move(0,-1,true);
+		        return;
+		    }
+		    if(this.destination.y() == this.getY()) {
+                if(this.destination.x() > this.getX()) {
+                    move(1,0,true);
+                    return;
+                }
+                move(-1,0,true);
+                return;
+            }
+		    moveForward(1);
+		    return;
+		}
+		
+		this.wasOnCrossingBefore = true;
+		
 		//Determine on which corner of the crossing the car is
 		String corner = null;
 		for(Obstacle o : this.getPerceivedObjects(Obstacle.class)) {
@@ -121,6 +152,7 @@ public class Car extends Turtle {
 				return;
 			}
 			move(-1,-1,true);
+			this.setHeading(new Vector2f(-1,0));
 			return; 
 		}
 		if(corner == "BOTTOMLEFT") { //$NON-NLS-1$
@@ -133,9 +165,9 @@ public class Car extends Turtle {
 				return;
 			}
 			move(1,-1,true);
+			this.setHeading(new Vector2f(0,-1));
 			return; 
 		}
-
 		if(corner == "TOPRIGHT") { //$NON-NLS-1$
 			if(this.destination.y() < this.getY()) {
 				move(0,-1,true);
@@ -146,6 +178,7 @@ public class Car extends Turtle {
 				return;
 			}
 			move(-1,1,true);
+			this.setHeading(new Vector2f(0,1));
 			return; 
 		}
 		if(corner == "TOPLEFT") { //$NON-NLS-1$
@@ -158,6 +191,7 @@ public class Car extends Turtle {
 				return;
 			}
 			move(1,1,true);
+			this.setHeading(new Vector2f(1,0));
 			return; 
 		}
 	}
