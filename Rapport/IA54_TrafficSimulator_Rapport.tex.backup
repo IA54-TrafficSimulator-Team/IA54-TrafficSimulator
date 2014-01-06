@@ -66,19 +66,9 @@
 \usebox{\boitecitation}
 \end{center}}
 
-\input{garde}
+
 
 \begin{document}
-
-\garde{Lucie Boutou\\Théophile Madet} % Authors
-{\textbf{Simulateur de traffic}} % Title
-{Rapport de projet d'IA54} % Sub-title
-{} % Sub-sub-title
-{Automne 2013} % Date
-{} % Logo
-{} % Note bas de page
-
-
 \setcounter{page}{2}
 \tableofcontents
 
@@ -182,7 +172,7 @@ Notre environnement est un espace discret 2D représenté par une grille qui dan
 
 \begin{figure}[H]
    \centering
-   \includegraphics[scale=0.35]{images/environnement.png}
+   \includegraphics[scale=0.35]{environnement.png}
 \end{figure}
 
 Parmi ces objets, notre environnement possède des murs, qui sont des obstacles : cela signifie qu'aucun autre élément ne peut se trouver dans une case où se trouve déjà un mur. Les routes apparaissent donc aux endroits où il n'y a pas de murs de placés. \\
