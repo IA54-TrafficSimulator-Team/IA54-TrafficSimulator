@@ -173,7 +173,7 @@ public abstract class ScriptedTurtle<C extends ScriptExecutionContext> extends T
 	
 	/** Invoked by {@link #activate(Object...)} just before
 	 * the scripted activation function is invoked.
-	 * This function is present for overridding by subclasses. 
+	 * This function is present for overriding by subclasses. 
 	 */
 	protected void preScriptActivation() {
 		//

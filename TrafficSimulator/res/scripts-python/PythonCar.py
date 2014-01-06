@@ -4,9 +4,6 @@ from fr.utbm.ia54.trafficsimulator.environment import Wall
 from fr.utbm.ia54.trafficsimulator.environment import TrafficLight
 def behaviourTurtle(turtle) :
 
-    print turtle.getPosition()
-    print turtle.destination
-
     destinationInWall = False
 
     for o in turtle.getPerceivedObjects(Wall) :
