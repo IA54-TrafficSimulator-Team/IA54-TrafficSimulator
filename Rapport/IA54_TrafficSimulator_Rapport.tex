@@ -177,7 +177,7 @@ Notre environnement est un espace discret 2D représenté par une grille qui dan
 
 Parmi ces objets, notre environnement possède des murs, qui sont des obstacles : cela signifie qu'aucun autre élément ne peut se trouver dans une case où se trouve déjà un mur. Les routes apparaissent donc aux endroits où il n'y a pas de murs de placés. \\
 
-Un second objet compose notre environnement : il s'agit des feux de circulation. Cette catégorie d'objet ne correspond pas un obstacle. Il permet donc aux voitures de se déplacer sur une case comportant un feu de circulation. Néanmoins ces feux agissent sur le dépacement des voitures : lorsque le feu est rouge, les voitures ne peuvent pas progresser au delà de celui-ci. Lorsque le feu est vert, ils le peuvent. \\
+Un second objet compose notre environnement : il s'agit des feux de circulation. Cette catégorie d'objet ne correspond pas un obstacle. Il permet donc aux voitures de se déplacer sur une case comportant un feu de circulation. Néanmoins ces feux agissent sur le dépacement des voitures : lorsque le feu est rouge, les voitures ne peuvent pas progresser au delà de celui-ci. Lorsque le feu est vert, elles le peuvent. \\
 
 La création de l'environnement se déroule dans la fonction \emph{createEnvironment} de la classe \emph{MainProgram}. Pour chaque case de la grille on lui applique le ou les objets que l'on souhaite aux coordonnées correspondantes. \\
 
@@ -214,7 +214,7 @@ C'est uniquement lorsque la voiture se trouve sur une intersection que celle-ci 
 \item[-] faire un demi-tour (pas en diagonale) afin de faire face à cette intersection dans le sens inverse.\\
 \end{itemize}
 
-Afin de prendre sa décision, la voiture a accès à sa position (coordonnées x et y) ainsi que la position de sa destination (coordonnées x et y). 
+Afin de prendre sa décision, la voiture a accès à sa position absolue (coordonnées x et y), la position de sa destination (coordonnées x et y), et sa position dans le croisement. Cette dernière information permet, une fois la direction choisie, de s'engager dans la bonne voie et éviter de rouler à contre sens.
 
 \section{Interface}
 
@@ -246,7 +246,7 @@ Sur cet exemple nous avons écrit la classe \emph{ScriptedTurtle}. Cette classe 
  \item[-]endTurtle.\\
 \end{itemize}
 
-Afin de coder une tortue en lanage de script, un script devra contenir au minimum la définition de la fonction behaviourTurtle.
+Afin de coder une tortue en langage de script, un script devra contenir au minimum la définition de la fonction behaviourTurtle.
 
 Cette classe est la classe mère qui permet d'écrire des tortues dans un langage de script. Un template est utilisé pour définir l'interpréteur et le loader de script. \\
 
